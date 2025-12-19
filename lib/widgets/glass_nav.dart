@@ -42,8 +42,8 @@ class GlassNavbar extends StatelessWidget {
           decoration: BoxDecoration(
             color: hasScrolled
                 ? (isDark
-                    ? Colors.black.withValues(alpha: 0.7)
-                    : Colors.white.withValues(alpha: 0.8))
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.white.withOpacity(0.2))
                 : Colors.transparent,
             border: Border(
               bottom: BorderSide(
@@ -78,7 +78,6 @@ class GlassNavbar extends StatelessWidget {
                       children: [
                         _navLink("Skills", isDark, onSkillsTap),
                         _navLink("About", isDark, onAboutTap),
-                        _navLink("Services", isDark, onServicesTap),
                         _navLink("Services", isDark, onServicesTap),
                         _navLink("Projects", isDark, onProjectTap),
                         _navLink("Experience", isDark, onExperienceTap),
