@@ -9,7 +9,7 @@ class GlassNavbar extends StatelessWidget {
   final void Function() onServicesTap;
 
   final void Function() onExperienceTap;
-  // final void Function() onContactTap;
+  final void Function() onContactTap;
 
 
   const GlassNavbar({
@@ -20,7 +20,7 @@ class GlassNavbar extends StatelessWidget {
     required this.onServicesTap,
 
     required this.onExperienceTap,
-    // required this.onContactTap,
+    required this.onContactTap,
     super.key,
   });
 
@@ -42,8 +42,8 @@ class GlassNavbar extends StatelessWidget {
           decoration: BoxDecoration(
             color: hasScrolled
                 ? (isDark
-                    ? Colors.black.withOpacity(0.7)
-                    : Colors.white.withOpacity(0.8))
+                    ? Colors.black.withValues(alpha: 0.7)
+                    : Colors.white.withValues(alpha: 0.8))
                 : Colors.transparent,
             border: Border(
               bottom: BorderSide(

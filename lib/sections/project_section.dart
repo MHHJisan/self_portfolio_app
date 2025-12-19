@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this to pubspec.yaml
 
 class ProjectSection extends StatelessWidget {
@@ -46,7 +46,7 @@ class ProjectSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF020617) : Colors.white,
         border: Border.symmetric(
-          horizontal: BorderSide(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+          horizontal: BorderSide(color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
         ),
       ),
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
@@ -168,11 +168,11 @@ class _ProjectCardState extends State<ProjectCard> {
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+          color: isDark ? Colors.white.withOpacity(0.05) : Colors.white,
           border: Border.all(
             color: _isHovered
-                ? const Color(0xFF6366F1).withValues(alpha: 0.4)
-                : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+                ? const Color(0xFF6366F1).withOpacity(0.4)
+                : (isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
           ),
           boxShadow: [
             if (_isHovered)
@@ -227,7 +227,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 return Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4F46E5).withValues(alpha: 0.1),
+                    color: const Color(0xFF4F46E5).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(

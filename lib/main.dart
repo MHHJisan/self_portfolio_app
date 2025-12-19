@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/sections/about_section.dart';
-import 'package:test_app/sections/award_section.dart';
-import 'package:test_app/sections/experience_section.dart';
-import 'package:test_app/sections/hero_section.dart';
-import 'package:test_app/sections/project_section.dart';
-import 'package:test_app/sections/services_section.dart';
-import 'package:test_app/sections/skills_section.dart';
-import 'package:test_app/sections/volunteering_section.dart';
-import 'package:test_app/widgets/glass_nav.dart';
+import 'sections/contact_section.dart';
+import 'sections/footer_section.dart';
+import 'sections/resume_section.dart';
+import 'sections/about_section.dart';
+import 'sections/award_section.dart';
+import 'sections/experience_section.dart';
+import 'sections/hero_section.dart';
+import 'sections/project_section.dart';
+import 'sections/services_section.dart';
+import 'sections/skills_section.dart';
+import 'sections/volunteering_section.dart';
+import 'widgets/glass_nav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey aboutSectionKey = GlobalKey();
   final GlobalKey servicesSectionKey = GlobalKey();
   final GlobalKey experienceSectionKey = GlobalKey();
+  final GlobalKey contactSectionKey = GlobalKey();
 
 
   @override
@@ -106,6 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ExperienceSection(key: experienceSectionKey),
                 AwardsSection(),
                 VolunteeringSection(),
+                ResumeSection(),
+                ContactSection(key: contactSectionKey),
+                FooterSection(),
                 const SizedBox(height: 500),
               ],
             ),
@@ -122,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onServicesTap: () => _scrollToSection(servicesSectionKey),
               onSkillsTap: () => _scrollToSection(skillsSectionKey),
               onExperienceTap: () => _scrollToSection(experienceSectionKey),
-
-
+              onContactTap: () => _scrollToSection(contactSectionKey),
             ),
           ),
         ],
@@ -148,6 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
               _drawerLink("Services", isDark, () => _scrollToSection(servicesSectionKey)),
               _drawerLink("Skills", isDark, () => _scrollToSection(skillsSectionKey)),
               _drawerLink("Experience", isDark, () => _scrollToSection(experienceSectionKey)),
+
+              _drawerLink("Contact", isDark, () => _scrollToSection(contactSectionKey)),
 
               const Spacer(),
               SizedBox(

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 
 // 1. Define the Data Model
 class Experience {
@@ -137,7 +137,7 @@ class _ExperienceCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+          color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05),
         ),
       ),
       child: ClipRRect(
@@ -146,7 +146,7 @@ class _ExperienceCard extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
             padding: const EdgeInsets.all(32),
-            color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white.withValues(alpha: 0.8),
+            color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

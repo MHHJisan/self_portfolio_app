@@ -1,6 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VolunteeringItem {
@@ -80,17 +79,19 @@ class VolunteeringSection extends StatelessWidget {
   Widget _buildHeader(bool isDark) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             const Text("🌱", style: TextStyle(fontSize: 24)),
             const SizedBox(width: 12),
             Text(
               "VOLUNTEERING & MANAGEMENT",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w900,
-                letterSpacing: 4,
+                letterSpacing: 3, // Reduced slightly to help fit
                 color: const Color(0xFF4F46E5),
               ),
             ),
@@ -125,9 +126,9 @@ class _VolunteeringCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+          color: isDark ? Colors.white10 : Colors.black.withAlpha(13),
         ),
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+        color: isDark ? Colors.white.withAlpha(13) : Colors.white,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
@@ -90,7 +90,7 @@ class HeroSection extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
         Text(
           "I design & build thoughtful web products that feel effortless.",
           style: TextStyle(
@@ -113,25 +113,30 @@ class HeroSection extends StatelessWidget {
         // Action Buttons
         Row(
           children: [
-            ElevatedButton(
+            Expanded(
+             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: isDark ? Colors.white : Colors.black,
                 foregroundColor: isDark ? Colors.black : Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
               child: const Text("View recent work", style: TextStyle(fontWeight: FontWeight.bold)),
             ),
-            const SizedBox(width: 16),
-            OutlinedButton(
-              onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              ),
-              child: const Text("mhhaque.tech@gmail.com"),
             ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
+                  child: const Text("mhhaque.tech@gmail.com"),
+              ),
+            ),
+
           ],
         ),
       ],

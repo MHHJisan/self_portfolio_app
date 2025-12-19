@@ -95,9 +95,9 @@ class AboutSection extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.05),
+                  color: isDark ? Colors.white.withOpacity(0.1) : Colors.black.withOpacity(0.05),
                 ),
-                color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white.withValues(alpha: 0.8),
+                color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

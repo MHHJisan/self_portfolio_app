@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 
 class SkillsSection extends StatelessWidget {
   const SkillsSection({super.key});
@@ -92,13 +92,13 @@ class SkillsSection extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+                color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05),
               ),
-              color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white.withValues(alpha: 0.8),
+              color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
               // Shadow for Light Mode
               boxShadow: isDark ? [] : [
                 BoxShadow(
-                  color: const Color(0xFFE2E8F0).withValues(alpha: 0.6),
+                  color: const Color(0xFFE2E8F0).withOpacity(0.6),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 )
@@ -136,7 +136,7 @@ class SkillsSection extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white.withValues(alpha: 0.9) : const Color(0xFF1E293B),
+                          color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF1E293B),
                         ),
                       ),
                     ],

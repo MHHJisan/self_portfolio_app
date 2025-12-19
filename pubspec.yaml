@@ -1,4 +1,4 @@
-name: test_app
+name: self_portfolio_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.2
 
+  path_provider: ^2.1.2
+  open_filex: ^4.5.0
+  font_awesome_flutter: ^10.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,6 +65,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/Hasibul-Haque-Jisan.pdf
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,4 +1,4 @@
-# test_app
+# self_portfolio_app
 
 A new Flutter project.
 

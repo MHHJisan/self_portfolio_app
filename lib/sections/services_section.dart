@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_app/theme/colors.dart';
+import '../theme/colors.dart';
 
 class ServicesSection extends StatelessWidget {
   const ServicesSection({super.key});
@@ -101,18 +101,18 @@ class _ServiceCardState extends State<_ServiceCard> {
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
             color: _isHovered
-                ? const Color(0xFF6366F1).withValues(alpha: 0.4) // Indigo-500/40
-                : (widget.isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+                ? const Color(0xFF6366F1).withOpacity(0.4) // Indigo-500/40
+                : (widget.isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
           ),
           color: widget.isDark
-              ? Colors.white.withValues(alpha: 0.05)
-              : Colors.white.withValues(alpha: 0.8),
+              ? Colors.white.withOpacity(0.05)
+              : Colors.white.withOpacity(0.8),
           boxShadow: [
             if (_isHovered)
               BoxShadow(
                 color: widget.isDark
                     ? Colors.black54
-                    : const Color(0xFFE2E8F0).withValues(alpha: 0.8),
+                    : const Color(0xFFE2E8F0).withOpacity(0.8),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               )
@@ -137,7 +137,7 @@ class _ServiceCardState extends State<_ServiceCard> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: widget.isDark
-                            ? const Color(0xFF6366F1).withValues(alpha: 0.2)
+                            ? const Color(0xFF6366F1).withOpacity(0.2)
                             : const Color(0xFFEEF2FF),
                         borderRadius: BorderRadius.circular(16),
                       ),
