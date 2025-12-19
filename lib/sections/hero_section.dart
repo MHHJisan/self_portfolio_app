@@ -34,7 +34,7 @@ class HeroSection extends StatelessWidget {
           padding: EdgeInsets.only(
             left: 24,
             right: 24,
-            bottom: 80,
+            bottom: 40,
           ),
           child: isMobile
               ? Column(

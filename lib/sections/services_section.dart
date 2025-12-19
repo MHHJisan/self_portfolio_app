@@ -48,7 +48,7 @@ class ServicesSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
       child: Column(
         children: [
           if (isMobile)

@@ -11,7 +11,7 @@ class AboutSection extends StatelessWidget {
     final bool isMobile = screenWidth < 800;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
       child: Column(
         children: [
           // --- HEADER PART ---

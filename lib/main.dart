@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ResumeSection(),
                 ContactSection(key: contactSectionKey),
                 FooterSection(),
-                const SizedBox(height: 500),
+                // const SizedBox(height: 50),
               ],
             ),
           ),
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: isDark ? const Color(0xFF020617) : Colors.white,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onPressed: onTap,
       style: TextButton.styleFrom(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         foregroundColor: isDark ? Colors.white : Colors.black87,
         backgroundColor: Colors.transparent,
         overlayColor: Colors.transparent,
@@ -232,7 +232,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : const Color(0xFFEEF2FF).withOpacity(0.9),
+                  : const Color(0x00eef2ff).withOpacity(0.9),
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),

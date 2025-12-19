@@ -52,7 +52,7 @@ class ResumeSection extends StatelessWidget {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
       child: Center(
         child: Column(
           children: [
@@ -65,7 +65,7 @@ class ResumeSection extends StatelessWidget {
                 color: isDark ? const Color(0xFF818CF8) : const Color(0xFF4F46E5),
               ),
             ),
-            const SizedBox(height: 16),
+            // const SizedBox(height: 0),
             Text(
               "Download my resume",
               textAlign: TextAlign.center,
@@ -83,7 +83,7 @@ class ResumeSection extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
-                  color: isDark ? Colors.white70 : AppColors.slate500,
+                  color: isDark ? Colors.white70 : AppColors.green500,
                 ),
               ),
             ),

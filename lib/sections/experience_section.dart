@@ -62,7 +62,7 @@ class ExperienceSection extends StatelessWidget {
     final sortedYears = grouped.keys.toList()..sort((a, b) => b.compareTo(a));
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
       child: Column(
         children: [
           // HEADER

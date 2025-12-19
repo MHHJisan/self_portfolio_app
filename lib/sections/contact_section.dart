@@ -22,7 +22,7 @@ class ContactSection extends StatelessWidget {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
       child: Stack(
         alignment: Alignment.center,
         children: [
