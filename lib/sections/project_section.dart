@@ -49,7 +49,7 @@ class ProjectSection extends StatelessWidget {
           horizontal: BorderSide(color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
         ),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
@@ -62,7 +62,7 @@ class ProjectSection extends StatelessWidget {
               _buildSubHeader("Web Applications", isDark),
               _buildProjectGrid(webProjects, screenWidth),
 
-              const SizedBox(height: 60),
+              const SizedBox(height: 12),
 
               // --- MOBILE PROJECTS ---
               _buildSubHeader("Mobile Applications", isDark),
@@ -98,7 +98,7 @@ class ProjectSection extends StatelessWidget {
             color: isDark ? Colors.white : const Color(0xFF0F172A),
           ),
         ),
-        const SizedBox(height: 60),
+        const SizedBox(height: 40),
       ],
     );
   }
@@ -106,7 +106,7 @@ class ProjectSection extends StatelessWidget {
   Widget _buildSubHeader(String title, bool isDark) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 32),
+      margin: const EdgeInsets.only(bottom: 0),
       child: Text(
         title,
         style: TextStyle(

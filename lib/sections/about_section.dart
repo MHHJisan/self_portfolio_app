@@ -19,6 +19,7 @@ class AboutSection extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 800),
             child: Column(
               children: [
+                const SizedBox(height: 16),
                 Text(
                   "ABOUT",
                   style: TextStyle(
