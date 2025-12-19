@@ -79,6 +79,10 @@ class GlassNavbar extends StatelessWidget {
                         _navLink("Skills", isDark, onSkillsTap),
                         _navLink("About", isDark, onAboutTap),
                         _navLink("Services", isDark, onServicesTap),
+                        _navLink("Services", isDark, onServicesTap),
+                        _navLink("Projects", isDark, onProjectTap),
+                        _navLink("Experience", isDark, onExperienceTap),
+                        _navLink("Contact", isDark, onContactTap),
                         const SizedBox(width: 16), // Space before the button
                         _ctaButton(), // Let's Talk button appears immediately after links
                       ],

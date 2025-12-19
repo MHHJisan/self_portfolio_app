@@ -93,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate height dynamically to account for the phone's notch/status bar
+    final double topPadding = MediaQuery.of(context).padding.top;
+    final double navBarHeight = 75 + topPadding;
+
     return Scaffold(
       endDrawer: _buildDrawer(),
       body: Stack(
@@ -102,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: _scrollController,
             child: Column(
               children: [
+                SizedBox(height: navBarHeight),
                 HeroSection(key: heroSectionKey),
                 AboutSection(key: aboutSectionKey),
                 ProjectSection(key: projectsSectionKey),
@@ -227,7 +232,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : const Color(0xFFEEF2FF).withValues(alpha: 0.9),
+                  : const Color(0xFFEEF2FF).withOpacity(0.9),
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),
