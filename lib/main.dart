@@ -176,21 +176,43 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _drawerLink(String title, bool isDark, VoidCallback onTap) {
-    return TextButton(
-      onPressed: onTap,
-      style: TextButton.styleFrom(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        foregroundColor: isDark ? Colors.white : Colors.cyanAccent,
-        backgroundColor: Colors.transparent,
-        overlayColor: Colors.transparent,
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w900,
-          letterSpacing: -0.5,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0), // Space between boxes
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          decoration: BoxDecoration(
+            // "Modern Shade" Logic
+            color: isDark
+                ? Colors.white.withOpacity(0.05) // Subtle glow for dark mode
+                : const Color(0xFFF1F5F9),       // Soft slate for light mode
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min, // Box only as wide as text + padding
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                  color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                  Icons.keyboard_double_arrow_down,
+                  size: 18,
+                  color: isDark ? Colors.white38 : Colors.black26
+              ),
+            ],
+          ),
         ),
       ),
     );
