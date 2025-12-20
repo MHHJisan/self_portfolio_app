@@ -18,14 +18,14 @@ class HeroSection extends StatelessWidget {
           left: -50,
           top: 100,
           child: _BlurBlob(
-            color: Colors.indigo.withOpacity(isDark ? 0.4 : 0.2),
+            color: Colors.indigo.withValues(alpha: isDark ? 0.4 :  0.2),
           ),
         ),
         Positioned(
           right: -50,
           top: 50,
           child: _BlurBlob(
-            color: Colors.cyan.withOpacity(isDark ? 0.3 : 0.2),
+            color: Colors.cyan.withValues(alpha: isDark ? 0.3 : 0.2),
           ),
         ),
 
@@ -129,6 +129,8 @@ class HeroSection extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () {},
                   style: OutlinedButton.styleFrom(
+                    backgroundColor: AppColors.blue100,
+                    foregroundColor: isDark ? Colors.black : Colors.black87,
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   ),

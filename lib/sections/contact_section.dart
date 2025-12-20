@@ -184,7 +184,7 @@ class ContactSection extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: onTap,
       icon: const Icon(Icons.phone_outlined, size: 20),
-      label: const Text("Book a call"),
+      label: const Text("Have a call"),
       style: OutlinedButton.styleFrom(
         foregroundColor: isDark ? Colors.white : const Color(0xFF334155),
         side: BorderSide(color: isDark ? Colors.white24 : const Color(0xFFE2E8F0)),

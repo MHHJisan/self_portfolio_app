@@ -12,6 +12,7 @@ import 'sections/services_section.dart';
 import 'sections/skills_section.dart';
 import 'sections/volunteering_section.dart';
 import 'widgets/glass_nav.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -164,8 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
               _drawerLink("Contact", isDark, () => _scrollToSection(contactSectionKey)),
 
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
+              Align(
+                alignment: Alignment.centerRight,
+                // width: double.infinity,
                 child: _ctaButton(),
               ),
             ],
@@ -219,20 +221,55 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _ctaButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF4F46E5),
-        foregroundColor: Colors.white,
-        elevation: 0,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          // Logic to launch email or contact
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+          decoration: BoxDecoration(
+            // 1. Catchy Gradient
+            gradient: const LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFFA855F7)], // Indigo to Purple
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(30),
+            // 2. High-End Glowing Shadow
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF6366F1).withOpacity(0.4),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.chat_bubble_outline_outlined,
+                color: Colors.white,
+                size: 20,
+              ),
+              const SizedBox(width: 10),
+
+              Text(
+                "Let's talk",
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              // 3. Catchy Animated Icon
+
+            ],
+          ),
         ),
-      ),
-      child: const Text(
-        "Let's talk",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }

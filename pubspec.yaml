@@ -39,6 +39,7 @@ dependencies:
   path_provider: ^2.1.2
   open_filex: ^4.5.0
   font_awesome_flutter: ^10.7.0
+  google_fonts: ^6.2.1  # Add this line
 
 dev_dependencies:
   flutter_test:
