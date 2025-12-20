@@ -13,6 +13,14 @@ class ProjectSection extends StatelessWidget {
     // Your data structure
     final List<Map<String, dynamic>> projects = [
       {
+        "id": 0,
+        "title": "CPF International",
+        "description": "High-conversion non-profit site with multilingual support, donation funnel, and event publishing workflow.",
+        "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Supabase"],
+        "type": "web",
+        "url": "https://www.cpfint.org",
+      },
+      {
         "id": 1,
         "title": "Techraverse Learning Platform",
         "description": "Modular learning platform with real-time classrooms, cohort analytics, and a custom CMS powering 30k+ monthly sessions.",
@@ -29,9 +37,27 @@ class ProjectSection extends StatelessWidget {
         "url": "https://techra-quiz-web.vercel.app",
       },
       {
+        "id": 4,
+        "title": "Techraverse.com",
+        "description":
+        "Content platform for engineering notes, MDX-powered articles, and tooling reviews with custom search.",
+        "tags": ["Next.js", "TypeScript", "Contentful"],
+        "type": "web",
+        "url": "https://techraverse.com",
+
+      },
+      {
         "id": 5,
         "title": "Tasbeeh Tracker",
         "description": "A focused mobile application for spiritual habit tracking with cloud sync.",
+        "tags": ["ReactNative", "JavaScript", "Firebase"],
+        "type": "mobile",
+        "url": "#",
+      },
+      {
+        "id": 6,
+        "title": "Self Portfolio App",
+        "description": "built my self portfilo app - This one!",
         "tags": ["Flutter", "Dart", "Firebase"],
         "type": "mobile",
         "url": "#",

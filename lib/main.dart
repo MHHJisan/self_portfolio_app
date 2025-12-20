@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:self_portfolio_app/theme/colors.dart';
 import 'sections/contact_section.dart';
 import 'sections/footer_section.dart';
 import 'sections/resume_section.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: const Color(0xFF4F46E5),
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        scaffoldBackgroundColor: AppColors.slate900,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -146,12 +147,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Drawer(
-      backgroundColor: isDark ? const Color(0xFF020617) : Colors.white,
+      backgroundColor: isDark ? AppColors.slate900 : Colors.transparent,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 60),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               // _drawerLink("Work", isDark, () => _scrollToSection(projectsSectionKey)),
               _drawerLink("About", isDark, () => _scrollToSection(aboutSectionKey)),
@@ -179,8 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onPressed: onTap,
       style: TextButton.styleFrom(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        foregroundColor: isDark ? Colors.white : Colors.black87,
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        foregroundColor: isDark ? Colors.white : Colors.cyanAccent,
         backgroundColor: Colors.transparent,
         overlayColor: Colors.transparent,
       ),
@@ -232,7 +233,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : const Color(0x00eef2ff).withOpacity(0.9),
+                  : const Color(0x00eef2ff).withValues(alpha: 0.9),
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),
