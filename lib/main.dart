@@ -315,7 +315,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : const Color(0x00eef2ff).withOpacity(0.9),
+                  : AppColors.green500,
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),

@@ -252,7 +252,7 @@ class _ExperienceCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05),
+          color: isDark ? Colors.white10 : Colors.black,
         ),
       ),
       child: ClipRRect(
@@ -261,7 +261,7 @@ class _ExperienceCard extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
             padding: const EdgeInsets.all(32),
-            color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
+            color: isDark ? Colors.white : Colors.indigo[700],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -271,7 +271,7 @@ class _ExperienceCard extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,
-                    color: isDark ? Colors.white38 : AppColors.slate500,
+                    color: isDark ? Colors.green : Colors.amber,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -280,14 +280,14 @@ class _ExperienceCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white : const Color(0xFF0F172A),
+                    color: isDark ? Colors.green : AppColors.slate500,
                   ),
                 ),
                 Text(
                   exp.company,
                   style: TextStyle(
                     fontSize: 16,
-                    color: isDark ? Colors.white60 : AppColors.slate500,
+                    color: isDark ? Colors.green : Colors.black,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -296,7 +296,7 @@ class _ExperienceCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.5,
-                    color: isDark ? Colors.white70 : AppColors.slate600,
+                    color: isDark ? Colors.white70 : Colors.orange[300],
                   ),
                 ),
                 const SizedBox(height: 24),
