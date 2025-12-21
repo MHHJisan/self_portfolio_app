@@ -188,11 +188,11 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             // "Modern Shade" Logic
             color: isDark
-                ? Colors.white.withOpacity(0.05) // Subtle glow for dark mode
+                ? Colors.white.withValues(alpha: 0.05) // Subtle glow for dark mode
                 : const Color(0xFFF1F5F9),       // Soft slate for light mode
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
+              color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05),
             ),
           ),
           child: Row(
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
-                  color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
+                  color: isDark ? Colors.white.withValues(alpha: 0.9) : const Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 8),
@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // 2. High-End Glowing Shadow
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF6366F1).withOpacity(0.4),
+                color: const Color(0xFF6366F1).withValues(alpha: 0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),

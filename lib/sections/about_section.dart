@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -21,12 +22,12 @@ class AboutSection extends StatelessWidget {
               children: [
                 const SizedBox(height: 16),
                 Text(
-                  "ABOUT",
+                  "ABOUT ME",
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 4, // tracking-[0.3em]
-                    color: isDark ? Colors.indigoAccent[100] : const Color(0xFF4F46E5),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4,
+                    color: const Color(0xFF4F46E5), // indigo-600
                   ),
                 ),
                 const SizedBox(height: 16),
