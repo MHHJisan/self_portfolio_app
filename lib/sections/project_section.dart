@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this to pubspec.yaml
 
@@ -72,7 +73,7 @@ class ProjectSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF020617) : Colors.white,
         border: Border.symmetric(
-          horizontal: BorderSide(color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
+          horizontal: BorderSide(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
         ),
       ),
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
@@ -186,82 +187,121 @@ class _ProjectCardState extends State<ProjectCard> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    // // We use a Matrix4 translation for a "Lift" effect on hover
+    // final hoverTransform = Matrix4.identity()
+    //   ..translate(0, -8, 0) // Lifts the card up by 8 pixels
+    //   ..scale(1.02);        // Slightly scales up for depth
+
+    // SAFE CONSTRUCTION: Uses explicit doubles and factory constructors
+    final Matrix4 hoverTransform = Matrix4.translationValues(0.0, -8.0, 0.0)
+      ..scale(1.02, 1.02, 1.0);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.all(24),
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOutBack, // Gives it a snappy "engineering" bounce
+        transform: _isHovered ? hoverTransform : Matrix4.identity(),
+        padding: const EdgeInsets.all(28),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: isDark ? Colors.white.withOpacity(0.05) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          // Gradient background for a "Glass" feel
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [Colors.white.withValues(alpha: 0.08), Colors.white.withValues(alpha: 0.03)]
+                : [Colors.white, const Color(0xFFF8FAFC)],
+          ),
           border: Border.all(
             color: _isHovered
-                ? const Color(0xFF6366F1).withOpacity(0.4)
-                : (isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
+                ? const Color(0xFF6366F1).withValues(alpha: 0.5)
+                : (isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.08)),
+            width: _isHovered ? 2 : 1,
           ),
           boxShadow: [
-            if (_isHovered)
-              BoxShadow(
-                color: isDark ? Colors.black45 : const Color(0xFFE2E8F0),
-                blurRadius: 40,
-                offset: const Offset(0, 20),
-              )
+            BoxShadow(
+              color: _isHovered
+                  ? const Color(0xFF6366F1).withValues(alpha: 0.2)
+                  : Colors.transparent,
+              blurRadius: 30,
+              offset: const Offset(0, 15),
+            )
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title & Icon
+            // 1. TOP BAR: Engineering Label (Project ID)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Text(
-                    widget.project["title"],
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : const Color(0xFF0F172A),
-                    ),
+                Text(
+                  "PROJECT // 0${widget.project['id'] ?? 1}", // Technical ID
+                  style: GoogleFonts.spaceMono( // Mono font for engineering vibe
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF6366F1),
                   ),
                 ),
-                Icon(Icons.arrow_outward,
-                    color: _isHovered ? const Color(0xFF4F46E5) : Colors.grey,
-                    size: 20
+                AnimatedRotation(
+                  duration: const Duration(milliseconds: 300),
+                  turns: _isHovered ? 0 : -0.125, // Rotates icon on hover
+                  child: Icon(
+                    Icons.arrow_outward_rounded,
+                    color: _isHovered ? const Color(0xFF6366F1) : Colors.grey.withValues(alpha: 0.5),
+                    size: 20,
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            // Description
+            const SizedBox(height: 20),
+
+            // 2. PROJECT TITLE
+            Text(
+              widget.project["title"],
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 24,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.5,
+                color: isDark ? Colors.white : const Color(0xFF0F172A),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // 3. DESCRIPTION
             Text(
               widget.project["description"],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 fontSize: 15,
-                height: 1.5,
-                color: isDark ? Colors.white70 : AppColors.slate600,
+                height: 1.6,
+                color: isDark ? Colors.white.withValues(alpha: 0.6) : const Color(0xFF475569),
               ),
             ),
+
             const Spacer(),
-            // Tags
+
+            // 4. TECH STACK (Modern Chips)
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: (widget.project["tags"] as List<String>).map((tag) {
                 return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4F46E5).withOpacity(0.1),
+                    color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.03),
                     borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
                   ),
                   child: Text(
                     tag,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4F46E5),
+                    style: GoogleFonts.spaceMono(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : const Color(0xFF475569),
                     ),
                   ),
                 );
