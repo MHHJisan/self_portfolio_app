@@ -29,11 +29,17 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: const Color(0xFF4F46E5),
-        scaffoldBackgroundColor: AppColors.slate900,
+        scaffoldBackgroundColor: AppColors.slate50,
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF020617),
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       home: const HomeScreen(),
     );
@@ -205,11 +211,11 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             // "Modern Shade" Logic
             color: isDark
-                ? Colors.white.withValues(alpha: 0.05) // Subtle glow for dark mode
+                ? Colors.white.withOpacity(0.05) // Subtle glow for dark mode
                 : const Color(0xFFF1F5F9),       // Soft slate for light mode
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05),
+              color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
             ),
           ),
           child: Row(
@@ -221,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
-                  color: isDark ? Colors.white.withValues(alpha: 0.9) : const Color(0xFF0F172A),
+                  color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 8),
@@ -257,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // 2. High-End Glowing Shadow
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF6366F1).withValues(alpha: 0.4),
+                color: const Color(0xFF6366F1).withOpacity(0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -309,7 +315,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : const Color(0x00eef2ff).withValues(alpha: 0.9),
+                  : const Color(0x00eef2ff).withOpacity(0.9),
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),
