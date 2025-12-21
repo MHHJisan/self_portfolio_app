@@ -48,9 +48,14 @@ class ServicesSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 40 : 80, // Responsive padding
+        horizontal: 24,
+      ),
       child: Column(
         children: [
+          _buildHeader(isDark, isMobile),
+          const SizedBox(height: 32),
           if (isMobile)
             Column(
               children: services.map((s) => _ServiceCard(service: s, isDark: isDark)).toList(),
@@ -69,6 +74,35 @@ class ServicesSection extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+
+  Widget _buildHeader(bool isDark, bool isMobile) {
+    return Column(
+      children: [
+        Text(
+          "SERVICES",
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 4,
+            color: const Color(0xFF4F46E5),
+          ),
+        ),
+        const SizedBox(height: 16),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Text(
+            "A few ways I can help.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: isMobile ? 28 : 36,
+              fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white : const Color(0xFF0F172A),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -101,18 +135,18 @@ class _ServiceCardState extends State<_ServiceCard> {
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
             color: _isHovered
-                ? const Color(0xFF6366F1).withOpacity(0.4) // Indigo-500/40
-                : (widget.isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
+                ? const Color(0xFF6366F1).withValues(alpha: 0.4) // Indigo-500/40
+                : (widget.isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
           ),
           color: widget.isDark
-              ? Colors.white.withOpacity(0.05)
-              : Colors.white.withOpacity(0.8),
+              ? Colors.white.withValues(alpha: 0.05)
+              : Colors.white.withValues(alpha: 0.8),
           boxShadow: [
             if (_isHovered)
               BoxShadow(
                 color: widget.isDark
                     ? Colors.black54
-                    : const Color(0xFFE2E8F0).withOpacity(0.8),
+                    : const Color(0xFFE2E8F0).withValues(alpha: 0.8),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               )
@@ -128,37 +162,45 @@ class _ServiceCardState extends State<_ServiceCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Numeric ID Box
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 300),
-                    scale: _isHovered ? 1.1 : 1.0,
-                    child: Container(
-                      height: 48,
-                      width: 48,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: widget.isDark
-                            ? const Color(0xFF6366F1).withOpacity(0.2)
-                            : const Color(0xFFEEF2FF),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        widget.service["id"],
-                        style: const TextStyle(
-                          color: Color(0xFF4F46E5),
-                          fontWeight: FontWeight.bold,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Numeric ID Box
+                      AnimatedScale(
+                        duration: const Duration(milliseconds: 300),
+                        scale: _isHovered ? 1.1 : 1.0,
+                        child: Container(
+                          height: 48,
+                          width: 48,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: widget.isDark
+                                ? const Color(0xFF6366F1).withValues(alpha: 0.2)
+                                : const Color(0xFFEEF2FF),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            widget.service["id"],
+                            style: const TextStyle(
+                              color: Color(0xFF4F46E5),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  // Title
-                  Text(
-                    widget.service["title"],
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: widget.isDark ? Colors.white : const Color(0xFF0F172A),
-                    ),
+                      const SizedBox(width: 16),
+                      // Title
+                      Expanded(
+                        child: Text(
+                          widget.service["title"],
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: widget.isDark ? Colors.white : const Color(0xFF0F172A),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   // Description
