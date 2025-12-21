@@ -148,31 +148,48 @@ class _HomeScreenState extends State<HomeScreen> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Drawer(
+      // Ensure the background color doesn't block the stack behavior
       backgroundColor: isDark ? AppColors.slate900 : Colors.transparent,
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 60),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // _drawerLink("Work", isDark, () => _scrollToSection(projectsSectionKey)),
-              _drawerLink("About", isDark, () => _scrollToSection(aboutSectionKey)),
-              _drawerLink("Projects", isDark, () => _scrollToSection(projectsSectionKey)),
-              _drawerLink("Services", isDark, () => _scrollToSection(servicesSectionKey)),
-              _drawerLink("Skills", isDark, () => _scrollToSection(skillsSectionKey)),
-              _drawerLink("Experience", isDark, () => _scrollToSection(experienceSectionKey)),
-
-              _drawerLink("Contact", isDark, () => _scrollToSection(contactSectionKey)),
-
-              const Spacer(),
-              Align(
-                alignment: Alignment.centerRight,
-                // width: double.infinity,
-                child: _ctaButton(),
-              ),
-            ],
+      elevation: 0,
+      child: Stack(
+        children: [
+          // 1. BACKGROUND DETECTOR
+          // This fills the entire drawer area.
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => Navigator.pop(context),
+              child: Container(), // Empty container to catch taps
+            ),
           ),
-        ),
+
+          // 2. DRAWER CONTENT
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Nav Links
+                  _drawerLink("About", isDark, () => _scrollToSection(aboutSectionKey)),
+                  _drawerLink("Projects", isDark, () => _scrollToSection(projectsSectionKey)),
+                  _drawerLink("Services", isDark, () => _scrollToSection(servicesSectionKey)),
+                  _drawerLink("Skills", isDark, () => _scrollToSection(skillsSectionKey)),
+                  _drawerLink("Experience", isDark, () => _scrollToSection(experienceSectionKey)),
+                  _drawerLink("Contact", isDark, () => _scrollToSection(contactSectionKey)),
+
+                  const Spacer(),
+
+                  // CTA Button
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: _ctaButton(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
