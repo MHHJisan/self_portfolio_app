@@ -28,7 +28,7 @@ class SkillsSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
       child: Column(
         children: [
           // --- HEADER ---
