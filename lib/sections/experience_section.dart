@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/colors.dart';
 
 // 1. Define the Data Model
@@ -20,7 +21,6 @@ class Experience {
     required this.achievements,
   });
 
-  // Helper to extract the year from the period string
   int get startYear {
     final match = RegExp(r'(19|20)\d{2}').firstMatch(period);
     return match != null ? int.parse(match.group(0)!) : 0;
@@ -34,7 +34,8 @@ class ExperienceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 2. Mock Data (Replace with your actual data)
+
+// 2. Mock Data (Replace with your actual data)
     final List<Experience> experiences = [
       Experience(
         id: 1,
@@ -169,7 +170,7 @@ class ExperienceSection extends StatelessWidget {
       ),
     ];
 
-    // 3. Grouping Logic (Mirroring your grouped reduce logic)
+
     final Map<int, List<Experience>> grouped = {};
     for (var exp in experiences) {
       grouped.putIfAbsent(exp.startYear, () => []).add(exp);
@@ -177,34 +178,79 @@ class ExperienceSection extends StatelessWidget {
     final sortedYears = grouped.keys.toList()..sort((a, b) => b.compareTo(a));
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-      child: Column(
-        children: [
-          // HEADER
-          _buildHeader(isDark),
-          const SizedBox(height: 60),
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: Column(
+            children: [
+              _buildHeader(isDark),
+              const SizedBox(height: 60),
 
-          // LIST OF YEARS
-          ...sortedYears.map((year) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "$year",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white70 : AppColors.slate900,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // LIST OF CARDS FOR THIS YEAR
-                ...grouped[year]!.map((exp) => _ExperienceCard(exp: exp, isDark: isDark)),
-                const SizedBox(height: 32),
-              ],
-            );
-          }),
-        ],
+              ...sortedYears.map((year) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // --- NEW ICONIC YEAR HEADER ---
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0, bottom: 24, top: 10),
+                      child: Row(
+                        children: [
+                          // Icon with a soft Indigo glow
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF6366F1).withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: const Color(0xFF6366F1).withOpacity(0.2),
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.calendar_today_rounded, // Modern calendar icon
+                              size: 18,
+                              color: Color(0xFF6366F1),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          // The Year Text
+                          Text(
+                            "$year",
+                            style: GoogleFonts.spaceMono(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1,
+                              color: isDark ? Colors.white : const Color(0xFF0F172A),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          // Decorative line to "anchor" the timeline
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    const Color(0xFF6366F1).withOpacity(0.3),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // The cards for this year
+                    ...grouped[year]!.map((exp) => ExperienceCard(exp: exp)),
+                    const SizedBox(height: 40),
+                  ],
+                );
+              }),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -213,25 +259,23 @@ class ExperienceSection extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "EXPERIENCE",
-          style: TextStyle(
+          "PROFESSIONAL JOURNEY",
+          style: GoogleFonts.spaceMono(
             fontSize: 14,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.bold,
             letterSpacing: 4,
-            color: const Color(0xFF4F46E5),
+            color: const Color(0xFF6366F1),
           ),
         ),
         const SizedBox(height: 16),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: Text(
-            "Building high-quality software with teams across the globe.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: isDark ? Colors.white : const Color(0xFF0F172A),
-            ),
+        Text(
+          "Building impact across industries.",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 38,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -1,
+            color: isDark ? Colors.white : const Color(0xFF0F172A),
           ),
         ),
       ],
@@ -239,100 +283,147 @@ class ExperienceSection extends StatelessWidget {
   }
 }
 
-class _ExperienceCard extends StatelessWidget {
+class ExperienceCard extends StatefulWidget {
   final Experience exp;
-  final bool isDark;
+  const ExperienceCard({required this.exp, super.key});
 
-  const _ExperienceCard({required this.exp, required this.isDark});
+  @override
+  State<ExperienceCard> createState() => _ExperienceCardState();
+}
+
+class _ExperienceCardState extends State<ExperienceCard> {
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black,
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            padding: const EdgeInsets.all(32),
-            color: isDark ? Colors.white : Colors.indigo[700],
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  exp.period.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                    color: isDark ? Colors.green : Colors.amber,
-                  ),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // Same "Safe" Matrix from Projects
+    final Matrix4 hoverTransform = Matrix4.translationValues(12.0, 0.0, 0.0); // Slides slightly right
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        // Mobile Support
+        onTapDown: (_) => setState(() => _isHovered = true),
+        onTapUp: (_) => setState(() => _isHovered = false),
+        onTapCancel: () => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOutBack,
+          transform: _isHovered ? hoverTransform : Matrix4.identity(),
+          margin: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: isDark
+                ? (_isHovered ? Colors.white.withOpacity(0.08) : Colors.white.withOpacity(0.04))
+                : Colors.white,
+            border: Border.all(
+              color: _isHovered
+                  ? const Color(0xFF6366F1).withOpacity(0.5)
+                  : (isDark ? Colors.white10 : Colors.black.withOpacity(0.05)),
+              width: 1,
+            ),
+            boxShadow: [
+              if (_isHovered)
+                BoxShadow(
+                  color: const Color(0xFF6366F1).withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(-10, 0),
+                )
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 1. DATE LABEL
+              Text(
+                widget.exp.period.toUpperCase(),
+                style: GoogleFonts.spaceMono(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF6366F1),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  exp.role,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.green : AppColors.slate500,
-                  ),
-                ),
-                Text(
-                  exp.company,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: isDark ? Colors.green : Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  exp.description,
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    color: isDark ? Colors.white70 : Colors.orange[300],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                // ACHIEVEMENTS
-                ...exp.achievements.map((achievement) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 8),
-                        height: 6,
-                        width: 6,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF6366F1),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          achievement,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: isDark ? Colors.white60 : AppColors.slate500,
+              ),
+              const SizedBox(height: 12),
+
+              // 2. ROLE & COMPANY
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.exp.role,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: isDark ? Colors.white : const Color(0xFF0F172A),
                           ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          widget.exp.company,
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF6366F1).withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )),
-              ],
-            ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // 3. DESCRIPTION
+              Text(
+                widget.exp.description,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  height: 1.6,
+                  color: isDark ? Colors.white60 : const Color(0xFF475569),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // 4. ACHIEVEMENTS LIST
+              ...widget.exp.achievements.map((achievement) => Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Icon(
+                        Icons.double_arrow_rounded, // Technical arrow icon
+                        size: 14,
+                        color: const Color(0xFF6366F1).withOpacity(0.5),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        achievement,
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          color: isDark ? Colors.white70 : const Color(0xFF475569),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+            ],
           ),
         ),
       ),
     );
   }
 }
+
+

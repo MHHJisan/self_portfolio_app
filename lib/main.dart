@@ -23,22 +23,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Define a base theme to build upon.
+    final textTheme = Theme.of(context).textTheme;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.dark, // Force dark mode on all platforms
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: const Color(0xFF4F46E5),
-        scaffoldBackgroundColor: AppColors.slate50,
-        textTheme: GoogleFonts.plusJakartaSansTextTheme(
-          Theme.of(context).textTheme,
-        ),
+        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(textTheme),
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
+        primaryColor: const Color(0xFF4F46E5),
         scaffoldBackgroundColor: const Color(0xFF020617),
         textTheme: GoogleFonts.plusJakartaSansTextTheme(
-          Theme.of(context).textTheme,
+          textTheme.apply(
+            bodyColor: Colors.white, // Ensure text is white in dark mode
+            displayColor: Colors.white,
+          ),
         ),
       ),
       home: const HomeScreen(),
@@ -116,11 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SizedBox(height: navBarHeight),
                 HeroSection(key: heroSectionKey),
+
                 AboutSection(key: aboutSectionKey),
-                ProjectSection(key: projectsSectionKey),
-                ServicesSection(key: servicesSectionKey),
-                SkillsSection(key: skillsSectionKey),
                 ExperienceSection(key: experienceSectionKey),
+                SkillsSection(key: skillsSectionKey),
+
+                ProjectSection(key: projectsSectionKey),
+
+                ServicesSection(key: servicesSectionKey),
                 AwardsSection(),
                 VolunteeringSection(),
                 ResumeSection(),
@@ -138,10 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
               hasScrolled: _hasScrolled,
               // Update these to match your GlassNavbar parameters
               onAboutTap: () => _scrollToSection(aboutSectionKey),
-              onProjectTap: () => _scrollToSection(projectsSectionKey),
-              onServicesTap: () => _scrollToSection(servicesSectionKey),
-              onSkillsTap: () => _scrollToSection(skillsSectionKey),
               onExperienceTap: () => _scrollToSection(experienceSectionKey),
+
+              onProjectTap: () => _scrollToSection(projectsSectionKey),
+              onSkillsTap: () => _scrollToSection(skillsSectionKey),
+
+              onServicesTap: () => _scrollToSection(servicesSectionKey),
               onContactTap: () => _scrollToSection(contactSectionKey),
             ),
           ),
@@ -155,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Drawer(
       // Ensure the background color doesn't block the stack behavior
-      backgroundColor: isDark ? AppColors.slate900 : Colors.transparent,
+      backgroundColor: isDark ? Colors.transparent : Colors.transparent,
       elevation: 0,
       child: Stack(
         children: [
@@ -178,10 +190,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   // Nav Links
                   _drawerLink("About", isDark, () => _scrollToSection(aboutSectionKey)),
+                  _drawerLink("Experience", isDark, () => _scrollToSection(experienceSectionKey)),
+                  _drawerLink("Skills", isDark, () => _scrollToSection(skillsSectionKey)),
                   _drawerLink("Projects", isDark, () => _scrollToSection(projectsSectionKey)),
                   _drawerLink("Services", isDark, () => _scrollToSection(servicesSectionKey)),
-                  _drawerLink("Skills", isDark, () => _scrollToSection(skillsSectionKey)),
-                  _drawerLink("Experience", isDark, () => _scrollToSection(experienceSectionKey)),
+
                   _drawerLink("Contact", isDark, () => _scrollToSection(contactSectionKey)),
 
                   const Spacer(),
@@ -211,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             // "Modern Shade" Logic
             color: isDark
-                ? Colors.white.withOpacity(0.05) // Subtle glow for dark mode
+                ? Colors.white // Subtle glow for dark mode
                 : const Color(0xFFF1F5F9),       // Soft slate for light mode
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
@@ -227,14 +240,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
-                  color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
+                  color: isDark ? Colors.black : const Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 8),
               Icon(
                   Icons.keyboard_double_arrow_down,
                   size: 18,
-                  color: isDark ? Colors.white38 : Colors.black26
+                  color: isDark ? Colors.black87 : Colors.black26
               ),
             ],
           ),
@@ -278,18 +291,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 20,
               ),
               const SizedBox(width: 10),
-
               Text(
                 "Let's talk",
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
-                  color: Colors.white,
-                  letterSpacing: 0.5,
-                ),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                    ),
               ),
-              // 3. Catchy Animated Icon
-
             ],
           ),
         ),
@@ -297,8 +307,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
 
 class BackgroundWrapper extends StatelessWidget {
   const BackgroundWrapper({super.key});
@@ -315,7 +323,7 @@ class BackgroundWrapper extends StatelessWidget {
             colors: [
               isDark
                   ? const Color(0xFF020617)
-                  : AppColors.green500,
+                  : const Color(0xFFEEF2FF).withOpacity(0.9), // Fixed light theme gradient
               Theme.of(context).scaffoldBackgroundColor,
             ],
           ),

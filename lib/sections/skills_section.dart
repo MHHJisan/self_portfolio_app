@@ -15,15 +15,15 @@ class SkillsSection extends StatelessWidget {
     final List<Map<String, dynamic>> skillCategories = [
       {
         "title": "Frontend",
-        "skills": ["React / Next.js", "Flutter Web", "Tailwind CSS", "TypeScript"]
+        "skills": ["React / Next.js", "Vue.js", "AngularJS", "Flutter Web", "Tailwind CSS", "TypeScript"]
       },
       {
         "title": "Mobile",
-        "skills": ["Flutter / Dart", "React Native", "Native Performance", "Store Deployment"]
+        "skills": ["Flutter / Dart", "React Native", "Swift", "Java"]
       },
       {
         "title": "Backend/Tools",
-        "skills": ["Node.js", "PostgreSQL", "Firebase", "CI/CD Pipelines"]
+        "skills": ["Node.js", "ExpressJS", "Laravel", "JavaSpring", "MONGODB" "PostgreSQL", "Firebase", "CI/CD Pipelines"]
       },
     ];
 
