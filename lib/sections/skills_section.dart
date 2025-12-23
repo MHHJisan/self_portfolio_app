@@ -11,7 +11,6 @@ class SkillsSection extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final bool isMobile = screenWidth < 900;
 
-    // Your skill data structure
     final List<Map<String, dynamic>> skillCategories = [
       {
         "title": "Frontend",
@@ -23,7 +22,7 @@ class SkillsSection extends StatelessWidget {
       },
       {
         "title": "Backend/Tools",
-        "skills": ["Node.js", "ExpressJS", "Laravel", "JavaSpring", "MONGODB" "PostgreSQL", "Firebase", "CI/CD Pipelines"]
+        "skills": ["Node.js", "ExpressJS", "Laravel", "JavaSpring", "PostgreSQL", "Firebase", "CI/CD Pipelines"]
       },
     ];
 
@@ -31,21 +30,16 @@ class SkillsSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
       child: Column(
         children: [
-          // --- HEADER ---
-          Text(
-            "TOOLKIT",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 4,
-              color: const Color(0xFF4F46E5), // indigo-600
-            ),
-          ),
+          // --- NEW HEADER BADGE ---
+          _buildHeaderBadge(isDark),
+
           const SizedBox(height: 16),
+
+          // --- UPDATED SUB-HEADER ---
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),
             child: Text(
-              "A pragmatic stack honed on production systems.",
+              "Technologies I work with",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: isMobile ? 28 : 36,
@@ -80,6 +74,35 @@ class SkillsSection extends StatelessWidget {
     );
   }
 
+  // Animated Badge Builder
+  Widget _buildHeaderBadge(bool isDark) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      decoration: BoxDecoration(
+        color: isDark
+            ? const Color(0xFF312E81).withOpacity(0.3)
+            : const Color(0xFFE0E7FF),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const PingDot(), // Animated pulse
+          const SizedBox(width: 8),
+          Text(
+            "TECHNICAL ARSENAL",
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              color: isDark ? const Color(0xFFA5B4FC) : const Color(0xFF4338CA),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSkillCard(Map<String, dynamic> category, bool isDark) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -95,7 +118,6 @@ class SkillsSection extends StatelessWidget {
                 color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05),
               ),
               color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
-              // Shadow for Light Mode
               boxShadow: isDark ? [] : [
                 BoxShadow(
                   color: const Color(0xFFE2E8F0).withOpacity(0.6),
@@ -113,11 +135,10 @@ class SkillsSection extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
-                    color: isDark ? Colors.white70 : AppColors.slate900,
+                    color: isDark ? Colors.white70 : const Color(0xFF0F172A),
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Skills List
                 ...category["skills"].map<Widget>((skill) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
@@ -126,7 +147,7 @@ class SkillsSection extends StatelessWidget {
                         height: 6,
                         width: 6,
                         decoration: const BoxDecoration(
-                          color: Color(0xFF6366F1), // indigo-500
+                          color: Color(0xFF6366F1),
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -147,6 +168,64 @@ class SkillsSection extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// --- PING DOT COMPONENT ---
+class PingDot extends StatefulWidget {
+  const PingDot({super.key});
+
+  @override
+  State<PingDot> createState() => _PingDotState();
+}
+
+class _PingDotState extends State<PingDot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        FadeTransition(
+          opacity: Tween<double>(begin: 0.75, end: 0.0).animate(_controller),
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 1.0, end: 2.5).animate(_controller),
+            child: Container(
+              height: 8,
+              width: 8,
+              decoration: const BoxDecoration(
+                color: Color(0xFF818CF8),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: 8,
+          width: 8,
+          decoration: const BoxDecoration(
+            color: Color(0xFF6366F1),
+            shape: BoxShape.circle,
+          ),
+        ),
+      ],
     );
   }
 }
