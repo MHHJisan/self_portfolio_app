@@ -133,9 +133,8 @@ class HeroSection extends StatelessWidget {
                     foregroundColor: isDark ? Colors.white : Colors.black87,
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-
                   ),
-                  child: const Text("mhhaque.tech@gmail.com"),
+                  child: const Text("mhhaque.tech@gmail.com", style: TextStyle(fontWeight: FontWeight.bold),),
               ),
             ),
 

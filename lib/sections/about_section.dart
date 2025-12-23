@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -21,16 +20,11 @@ class AboutSection extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                Text(
-                  "ABOUT ME",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 4,
-                    color: const Color(0xFF4F46E5), // indigo-600
-                  ),
-                ),
-                const SizedBox(height: 16),
+
+                // --- NEW INTEGRATED BADGE ---
+                _buildAboutMeBadge(isDark),
+
+                const SizedBox(height: 24),
                 Text(
                   "Engineering calm, reliable interfaces for ambitious teams.",
                   textAlign: TextAlign.center,
@@ -58,21 +52,50 @@ class AboutSection extends StatelessWidget {
           const SizedBox(height: 60),
 
           // --- PRINCIPLES GRID ---
-          // On mobile we stack (Column), on web we spread (Row)
           if (isMobile)
-            Column(
-              children: _buildPrinciples(isDark),
-            )
+            Column(children: _buildPrinciples(isDark))
           else
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _buildPrinciples(isDark)
-                  .map((widget) => Expanded(child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: widget,
-              )))
+                  .map((widget) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: widget,
+                ),
+              ))
                   .toList(),
             ),
+        ],
+      ),
+    );
+  }
+
+  // Helper to build the badge
+  Widget _buildAboutMeBadge(bool isDark) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      decoration: BoxDecoration(
+        color: isDark
+            ? const Color(0xFF312E81).withOpacity(0.3)
+            : const Color(0xFFE0E7FF),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const PingDot(), // The animated dot
+          const SizedBox(width: 8),
+          Text(
+            "About Me",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: isDark
+                  ? const Color(0xFFA5B4FC)
+                  : const Color(0xFF4338CA),
+            ),
+          ),
         ],
       ),
     );
@@ -128,5 +151,63 @@ class AboutSection extends StatelessWidget {
         ),
       );
     }).toList();
+  }
+}
+
+// --- ANIMATED PING DOT COMPONENT ---
+class PingDot extends StatefulWidget {
+  const PingDot({super.key});
+
+  @override
+  State<PingDot> createState() => _PingDotState();
+}
+
+class _PingDotState extends State<PingDot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        FadeTransition(
+          opacity: Tween<double>(begin: 0.75, end: 0.0).animate(_controller),
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 1.0, end: 2.5).animate(_controller),
+            child: Container(
+              height: 8,
+              width: 8,
+              decoration: const BoxDecoration(
+                color: Color(0xFF818CF8),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: 8,
+          width: 8,
+          decoration: const BoxDecoration(
+            color: Color(0xFF6366F1),
+            shape: BoxShape.circle,
+          ),
+        ),
+      ],
+    );
   }
 }
