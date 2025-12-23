@@ -129,10 +129,11 @@ class HeroSection extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: AppColors.blue100,
-                    foregroundColor: isDark ? Colors.black : Colors.black87,
+                    backgroundColor: isDark ? Colors.black12 : Colors.black12,
+                    foregroundColor: isDark ? Colors.white : Colors.black87,
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+
                   ),
                   child: const Text("mhhaque.tech@gmail.com"),
               ),
