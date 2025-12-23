@@ -91,7 +91,7 @@ class HeroSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(
-          "I design & build thoughtful web products that feel effortless.",
+          "I design & build thoughtful web and mobile applications that feel effortless.",
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w700,
